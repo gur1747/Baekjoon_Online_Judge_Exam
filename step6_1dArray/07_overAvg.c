@@ -1,43 +1,46 @@
-//실패한 문제, 추후 수정예정
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(){
-    int T;
-    scanf("%d", &T);
+int main() {
+	int C;				//케이스 수
+	scanf("%d", &C);
 
-    int i, j;
-    int stu;
-    int count = 0;
-    int sum = 0;
-    double avg = 0.0;
-    double *result = (double *)malloc(T * sizeof(double));
-    for(i = 0; i < T; i++){
-        scanf("%d", &stu);
-        int *score = (int *)malloc(stu * sizeof(int));
-        for(j = 0; j < stu; j++){
-            scanf("%d", &score[j]);
-            sum += score[j];
-        }
-        avg = (double)sum / (double)stu;
-        for(j = 0; j < stu; j++){
-            if(score[j] >= avg){
-                count += 1;
-            }
-        }
-        result[i] = (double)count / (double)stu;
+	int N;				//학생 수
+	int i, j;			//반복문에 사용 할 지수
+	double avg = 0.0;	//각 케이스마다 초기화
+	int sum = 0;		//각 케이스마다 초기화
+	int count = 0;		//평균 넘는 학생수 카운트
+						//출력에 사용할 각 케이스 별 결과 동적할당
+	double *result = (double *)malloc(C * sizeof(double));
 
-        sum = 0;
-        avg = 0;
-        count = 0;
-        free(score);
-    }
+	//입력받아 결과 도출
+	for (i = 0; i < C; i++) {    //케이스 수 만큼 반복
+		scanf("%d", &N);
+		int *score = (int *)malloc(N * sizeof(int));
+		for (j = 0; j < N; j++) {    //각 케이스 별 학생 수 만큼 반복
+			scanf("%d", &score[j]);
+			sum += score[j];
+		}
+		avg = (double)sum / (double)N;
+		for (j = 0; j < N; j++) {    //각 케이스 별 학생 수 만큼 반복
+			if (score[j] > avg) {
+				count++;
+			}
+		}
+		result[i] = (double)count / (double)N * 100.0;
 
-    for(i = 0; i < T; i++){
-        printf("%.3lf\n", result[i]);
-    }
+		//결과 도출에 재사용 할 변수들 초기화
+		//케이스 별 점수 또한 따로 저장해 두지 않음(free 사용)
+		avg = 0.0;
+		sum = 0;
+		count = 0;
+		free(score);
+	}
 
-    free(result);
+	//결과 출력
+	for (i = 0; i < C; i++) {
+		printf("%.3lf%%\n", result[i]);
+	}
 
-    return 0;
+	return 0;
 }
