@@ -1,4 +1,3 @@
-//실패한 문제
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -7,23 +6,20 @@ int main() {
 	int T;
 	scanf("%d", &T);
 
-	int i, j, k, R;
-	char temp[1];
+	int i, j, k, R, length;
 	char S[21];
-	char P[21][1000];
-	for (i = 0; i < T; i++) {
-		scanf("%d %s", &R, S);
-		//여기부터가 문제임
-		for (j = 0; j < strlen(S); j++) {
-			for (k = 0; k < R; k++) {
-				strncpy(temp, S + j, 1);
-				strcat((*(P + j) + T), temp);
-			}
-		}
-	}
 
 	for (i = 0; i < T; i++) {
-		printf("%s\n", (*(P + j) + T));
+		scanf("%d", &R);
+		scanf("%s", S);
+
+		length = strlen(S);
+		for (j = 0; j < length; j++) {
+			for (k = 0; k < R; k++) {
+				printf("%c", S[j]);
+			}
+		}
+		printf("\n");
 	}
 
 	return 0;
